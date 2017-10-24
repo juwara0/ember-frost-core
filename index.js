@@ -116,13 +116,13 @@ module.exports = {
     this.options = this.options || {}
     defaultBabel(this.options)
 
-    if (this.options.babel.plugins.indexOf('transform-decorators-legacy') === -1) {
-      this.options.babel.plugins.push('transform-decorators-legacy')
-    }
+    // if (this.options.babel.plugins.indexOf('transform-decorators-legacy') === -1) {
+    //   this.options.babel.plugins.push('transform-decorators-legacy')
+    // }
 
-    if (this.options.babel.plugins.indexOf('transform-class-properties') === -1) {
-      this.options.babel.plugins.push('transform-class-properties')
-    }
+    // if (this.options.babel.plugins.indexOf('transform-class-properties') === -1) {
+    //   this.options.babel.plugins.push('transform-class-properties')
+    // }
 
     if (this._super.init) {
       this._super.init.apply(this, arguments)
