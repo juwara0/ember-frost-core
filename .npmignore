@@ -8,8 +8,8 @@
 .bowerrc
 .editorconfig
 .ember-cli
-.eslintignore
 .eslintrc.js
+.eslintignore
 .github
 .gitignore
 .pullapprove.yml
@@ -24,3 +24,9 @@ dependency-snapshot.json
 jsconfig.json
 testem.json
 .idea
+testem.js
+
+# ember-try
+.node_modules.ember-try/
+bower.json.ember-try
+package.json.ember-try

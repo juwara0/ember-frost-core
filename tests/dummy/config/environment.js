@@ -1,9 +1,10 @@
-/* eslint-env node */
+'use strict'
+
 module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'dummy',
     podModulePrefix: 'dummy/pods',
-    environment: environment,
+    environment,
     rootURL: '/',
     locationType: 'hash',
     EmberENV: {
@@ -54,6 +55,7 @@ module.exports = function (environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false
 
     ENV.APP.rootElement = '#ember-testing'
+    ENV.APP.autoboot = false
   }
 
   if (environment === 'production') {
