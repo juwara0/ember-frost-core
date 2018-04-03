@@ -1,7 +1,15 @@
 /**
  * Component definition for frost-select-dropdown component
  */
-import Ember from 'ember'
+import { htmlSafe } from '@ember/string';
+
+import $ from 'jquery';
+import { deprecate } from '@ember/application/deprecations';
+import { get } from '@ember/object';
+import { isArray } from '@ember/array';
+import { isEmpty } from '@ember/utils';
+import { merge } from '@ember/polyfills';
+import { run } from '@ember/runloop';
 import computed, {readOnly} from 'ember-computed-decorators'
 import {task, timeout} from 'ember-concurrency'
 import {PropTypes} from 'ember-prop-types'
@@ -12,7 +20,6 @@ import {keyCodes} from '../utils'
 import {trimLongDataInElement} from '../utils/text'
 import Component from './frost-component'
 
-const {$, deprecate, get, isArray, isEmpty, merge, run} = Ember
 const {DOWN_ARROW, ENTER, ESCAPE, TAB, UP_ARROW} = keyCodes
 
 const BORDER_HEIGHT = 1
@@ -153,7 +160,7 @@ export default Component.extend({
     ]
       .join(';')
 
-    return Ember.String.htmlSafe(style)
+    return htmlSafe(style);
   },
 
   @readOnly
@@ -177,7 +184,7 @@ export default Component.extend({
       style.push(`bottom:${bottom - ARROW_HEIGHT + BORDER_HEIGHT}px`)
     }
 
-    return Ember.String.htmlSafe(style.join(';'))
+    return htmlSafe(style.join(';'));
   },
 
   @readOnly

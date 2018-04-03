@@ -2,13 +2,16 @@
  * Integration test for the object-helper component
  */
 
-import {expect} from 'chai'
-import Ember from 'ember'
+import Component from '@ember/component';
+
+import { run } from '@ember/runloop';
+import { set } from '@ember/object';
+
+import { expect } from 'chai';
 import {integration} from 'ember-test-utils/test-support/setup-component-test'
 import hbs from 'htmlbars-inline-precompile'
 import {afterEach, beforeEach, describe, it} from 'mocha'
 import sinon from 'sinon'
-const {Component, run, set} = Ember
 const test = integration('object')
 describe('Integration | Helper | object', function () {
   test.setup()

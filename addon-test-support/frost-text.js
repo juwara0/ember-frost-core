@@ -9,14 +9,17 @@
  * @property {String} [value] - value of input
  */
 
-import {expect} from 'chai'
-import Ember from 'ember'
-const {$, typeOf} = Ember // eslint-disable-line
+import { assign, merge } from '@ember/polyfills';
+
+import $ from 'jquery';
+import { typeOf } from '@ember/utils';
+
+import { expect } from 'chai';
 import {$hook} from 'ember-hook'
 
 import {expectDisabledState} from './utils'
 
-const assign = Object.assign || Ember.assign || Ember.merge // eslint-disable-line
+const objectAssign = Object.assign || assign || merge // eslint-disable-line
 
 /**
  * Verify text input exists with expected state
@@ -33,7 +36,7 @@ export function expectWithState (input, state) {
   }
 
   const $input = typeOf(input) === 'string' ? $hook(input) : input
-  state = assign(defaults, state)
+  state = objectAssign(defaults, state)
 
   expect(
     $input.hasClass(state.align),

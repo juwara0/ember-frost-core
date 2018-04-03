@@ -1,6 +1,5 @@
+import $ from 'jquery';
 import {expect} from 'chai'
-import Ember from 'ember'
-const {$} = Ember
 import {cloneEvent} from 'ember-frost-core/utils'
 import {describe, it} from 'mocha'
 

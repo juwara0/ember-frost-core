@@ -1,6 +1,5 @@
+import { typeOf } from '@ember/utils';
 import {expect} from 'chai'
-import Ember from 'ember'
-const {typeOf} = Ember // eslint-disable-line
 import {$hook} from 'ember-hook'
 
 /**

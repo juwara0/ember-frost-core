@@ -8,13 +8,14 @@
 
 /* eslint-disable ember-standard/destructure */
 
-import Ember from 'ember'
-const {Helper} = Ember
+import { assign, merge } from '@ember/polyfills';
 
-const assign = Object.assign || Ember.assign || Ember.merge
+import Helper from '@ember/component/helper';
+
+const objectAssign = Object.assign || assign || merge
 
 export function extend ([original], newProps) {
-  return assign({}, original, newProps)
+  return objectAssign({}, original, newProps)
 }
 
 export default Helper.helper(extend)

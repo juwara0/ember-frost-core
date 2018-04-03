@@ -1,8 +1,14 @@
 /**
  * Component definition for the frost-toggle component
  */
-import Ember from 'ember'
-const {ViewUtils, assert, deprecate, isPresent, typeOf} = Ember
+import { assert } from '@ember/debug';
+
+import { deprecate } from '@ember/application/deprecations';
+import { typeOf, isPresent } from '@ember/utils';
+import Ember from 'ember';
+const {
+  ViewUtils
+} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'
 import SpreadMixin from 'ember-spread'

@@ -1,8 +1,17 @@
 /**
  * Component definition for frost-link component
  */
-import Ember from 'ember'
-const {LinkComponent, Logger, assign, deprecate, get, isEmpty, isNone, isPresent, run, set, typeOf} = Ember
+import LinkComponent from '@ember/routing/link-component';
+
+import { assign } from '@ember/polyfills';
+import { deprecate } from '@ember/application/deprecations';
+import { run } from '@ember/runloop';
+import { set, get } from '@ember/object';
+import { typeOf, isPresent, isNone, isEmpty } from '@ember/utils';
+import Ember from 'ember';
+const {
+  Logger
+} = Ember
 import computed, {readOnly} from 'ember-computed-decorators'
 import {HookMixin} from 'ember-hook'
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'

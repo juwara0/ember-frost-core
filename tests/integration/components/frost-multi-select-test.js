@@ -1,10 +1,11 @@
+import $ from 'jquery';
+import { run } from '@ember/runloop';
 import {expect} from 'chai'
 import {
   expectWithState as expectSelectWithState,
   open,
   selectItemAtIndex
 } from 'ember-frost-core/test-support/frost-select'
-import Ember from 'ember'
 import {$hook, initialize as initializeHook} from 'ember-hook'
 import keyCodes from 'ember-frost-core/utils/key-codes'
 import wait from 'ember-test-helpers/wait'
@@ -13,7 +14,6 @@ import hbs from 'htmlbars-inline-precompile'
 import {afterEach, beforeEach, describe, it} from 'mocha'
 import sinon from 'sinon'
 
-const {$, run} = Ember
 const {DOWN_ARROW, ENTER, ESCAPE, SPACE, TAB, UP_ARROW} = keyCodes
 
 /**
