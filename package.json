@@ -75,9 +75,6 @@
     "frost"
   ],
   "ember-addon": {
-    "after": [
-      "ember-computed-decorators"
-    ],
     "configPath": "tests/dummy/config"
   },
   "ember-frost-icon-pack": {
