@@ -80,6 +80,7 @@
     "name": "frost"
   },
   "dependencies": {
+    "@ember-decorators/babel-transforms": "^2.0.0",
     "broccoli-autoprefixer": "^6.0.0",
     "broccoli-babel-transpiler": "^5.7.2",
     "broccoli-file-creator": "^1.1.1",
@@ -89,8 +90,8 @@
     "ember-cli-babel": "^6.6.0",
     "ember-cli-htmlbars": "^1.1.1",
     "ember-cli-sass": "^7.1.7",
-    "ember-decorators": "^1.3.4",
     "ember-concurrency": "^0.8.17",
+    "ember-decorators": "^1.3.4",
     "ember-elsewhere": "^1.0.4",
     "ember-hook": "^1.4.2",
     "ember-prop-types": "git://github.com/juwara0/ember-prop-types#upgradeEmberCli-2-18-2",
