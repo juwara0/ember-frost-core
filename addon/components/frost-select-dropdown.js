@@ -210,7 +210,7 @@ export default Component.extend({
     return items.map((item, index) => {
       const classNames = ['frost-select-list-item']
       const value = get(item, 'value')
-      cosnt selectedItems = this.get('selectedItems')
+      const selectedItems = this.get('selectedItems')
       const isSelected = selectedItems.find((item) => item.value === value) !== undefined
       const secondaryLabels = get(item, 'secondaryLabels')
 
