@@ -1,7 +1,7 @@
 'use strict'
 
 // const AssetRev = require('broccoli-asset-rev')
-const autoprefixer = require('broccoli-autoprefixer')
+const Autoprefixer = require('broccoli-autoprefixer')
 const writeFile = require('broccoli-file-creator')
 const Funnel = require('broccoli-funnel')
 const mergeTrees = require('broccoli-merge-trees')
@@ -234,7 +234,7 @@ module.exports = {
       const options = this._getAddonOptions().autoprefixer || {
         browsers: ['last 2 versions']
       }
-      tree = autoprefixer(tree, options)
+      tree = new Autoprefixer(tree, options)
     }
     return tree
   }
