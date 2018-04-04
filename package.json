@@ -84,7 +84,7 @@
     "broccoli-babel-transpiler": "^5.7.2",
     "broccoli-file-creator": "^1.1.1",
     "broccoli-funnel": "^2.0.1",
-    "broccoli-merge-trees": "^2.0.0",
+    "broccoli-merge-trees": "^3.0.0",
     "broccoli-svgstore": "^0.4.2",
     "ember-cli-babel": "^6.6.0",
     "ember-cli-htmlbars": "^1.1.1",
