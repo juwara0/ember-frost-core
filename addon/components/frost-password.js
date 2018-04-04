@@ -4,7 +4,7 @@
 import FrostEventsProxy from '../mixins/frost-events-proxy'
 import layout from '../templates/components/frost-password'
 import Component from './frost-component'
-import computed, {readOnly} from 'ember-computed-decorators'
+import {computed, readOnly} from 'ember-decorators/object'
 import {task, timeout} from 'ember-concurrency'
 import {PropTypes} from 'ember-prop-types'
 
@@ -84,8 +84,8 @@ export default Component.extend(FrostEventsProxy, {
    * @param {Boolean} isRevealed - true if the password is revealed
    * @returns {String} the message for the reveal button
    */
-  revealMessage (isRevealed) {
-    return isRevealed ? 'Hide' : 'Show'
+  get revealMessage () {
+    return this.get('isRevealed') ? 'Hide' : 'Show'
   },
 
   @readOnly
@@ -95,8 +95,8 @@ export default Component.extend(FrostEventsProxy, {
    * @param {Boolean} isRevealed - true if the password is revealed
    * @returns {String} the type of the <input>
    */
-  type (isRevealed) {
-    return isRevealed ? 'text' : 'password'
+  get type () {
+    return this.get('isRevealed') ? 'text' : 'password'
   },
 
   // == Tasks =================================================================

@@ -10,7 +10,7 @@ import { isArray } from '@ember/array';
 import { isEmpty } from '@ember/utils';
 import { merge } from '@ember/polyfills';
 import { run } from '@ember/runloop';
-import computed, {readOnly} from 'ember-computed-decorators'
+import {computed, readOnly} from 'ember-decorators/object'
 import {task, timeout} from 'ember-concurrency'
 import {PropTypes} from 'ember-prop-types'
 
@@ -93,9 +93,9 @@ export default Component.extend({
    * @param {Boolean} wrapLabels - whether or not select option text should wrap
    * @returns {string} the class names for the frost-select drop down
    */
-  dropdownClassNames (wrapLabels) {
+  get dropdownClassNames () {
     const classNames = ['frost-select-dropdown']
-    if (wrapLabels) {
+    if (this.get('wrapLabels')) {
       classNames.push('frost-select-dropdown-wrap-labels')
     }
     return classNames.join(' ')
@@ -108,9 +108,9 @@ export default Component.extend({
    * @param {Boolean} multiSelect - whether or not this is a multiselect
    * @returns {string} the class names for the frost select dropdown options
    */
-  dropdownTextClassNames (multiSelect) {
+  get dropdownTextClassNames () {
     const classNames = ['frost-select-list-item-text']
-    if (multiSelect) {
+    if (this.get('multiSelect')) {
       classNames.push('frost-multi-select-list-item-text')
     }
     return classNames.join(' ')
@@ -123,9 +123,9 @@ export default Component.extend({
    * @param {Boolean} multiSelect - whether or not this is a multiselect
    * @returns {string} the class names for the frost select dropdown secondary options
    */
-  dropdownSecondaryLabelsTextClassNames (multiSelect) {
+  get dropdownSecondaryLabelsTextClassNames () {
     const classNames = ['frost-select-list-secondary-item-text']
-    if (multiSelect) {
+    if (this.get('multiSelect')) {
       classNames.push('frost-multi-select-list-secondary-item-text')
     }
     return classNames.join(' ')
@@ -142,7 +142,10 @@ export default Component.extend({
    * @param {Number} width - width of dropdown
    * @returns {Handlebars.SafeString} position style/CSS for dropdown
    */
-  listStyle (bottom, left, maxHeight, top, width) {
+  get listStyle () {
+    let bottom = this.get('bottom')
+    let top = this.get('top')
+
     if (bottom !== 'auto') {
       bottom = `${bottom}px`
     }
@@ -153,10 +156,10 @@ export default Component.extend({
 
     const style = [
       `bottom:${bottom}`,
-      `left:${left}px`,
-      `max-height:${maxHeight}px`,
+      `left:${this.get('left')}px`,
+      `max-height:${this.get('maxHeight')}px`,
       `top:${top}`,
-      `width:${width}px`
+      `width:${this.get('width')}px`
     ]
       .join(';')
 
@@ -173,13 +176,15 @@ export default Component.extend({
    * @param {Number} width - width of arrow
    * @returns {Handlebars.SafeString} position style/CSS for arrow
    */
-  arrowStyle (bottom, left, top, width) {
+  get arrowStyle () {
     const style = [
-      `left:${left + (width - ARROW_WIDTH) / 2}px`
+      `left:${this.get('left') + (this.get('width') - ARROW_WIDTH) / 2}px`
     ]
 
+    const bottom = this.get('bottom')
+
     if (bottom === 'auto') {
-      style.push(`top:${top - ARROW_HEIGHT + BORDER_HEIGHT}px`)
+      style.push(`top:${this.get('top') - ARROW_HEIGHT + BORDER_HEIGHT}px`)
     } else {
       style.push(`bottom:${bottom - ARROW_HEIGHT + BORDER_HEIGHT}px`)
     }
@@ -196,7 +201,8 @@ export default Component.extend({
    * @param {Array<Object>} selectedItems - items that are currently selected
    * @returns {Array<Object>} render items
    */
-  renderItems (focusedIndex, items, selectedItems) {
+  get renderItems () {
+    const items = this.get('items')
     if (!items) {
       return []
     }
@@ -204,6 +210,7 @@ export default Component.extend({
     return items.map((item, index) => {
       const classNames = ['frost-select-list-item']
       const value = get(item, 'value')
+      cosnt selectedItems = this.get('selectedItems')
       const isSelected = selectedItems.find((item) => item.value === value) !== undefined
       const secondaryLabels = get(item, 'secondaryLabels')
 
@@ -215,7 +222,7 @@ export default Component.extend({
         classNames.push('frost-select-list-item-selected')
       }
 
-      if (index === focusedIndex) {
+      if (index === this.get('focusedIndex')) {
         classNames.push('frost-select-list-item-focused')
       }
 
@@ -245,7 +252,8 @@ export default Component.extend({
    * @param {Array<Object>} items - items
    * @returns {Boolean} whether or not to show empty message
    */
-  showEmptyMessage (items) {
+  get showEmptyMessage () {
+    const items = this.get('items')
     return !items || items.length === 0
   },
 

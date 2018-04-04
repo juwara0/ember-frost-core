@@ -10,7 +10,7 @@ import { typeOf } from '@ember/utils';
 import layout from '../templates/components/frost-select';
 import keyCodes from '../utils/key-codes'
 import Component from './frost-component'
-import computed, {readOnly} from 'ember-computed-decorators'
+import {computed, readOnly} from 'ember-decorators/object'
 import {task, timeout} from 'ember-concurrency'
 import {PropTypes} from 'ember-prop-types'
 
@@ -138,8 +138,9 @@ export default Component.extend({
 
   @readOnly
   @computed('label', 'opened')
-  ariaLabel (label, opened) {
-    const verb = opened ? 'Hide' : 'Show'
+  get ariaLabel () {
+    const verb = this.get('opened') ? 'Hide' : 'Show'
+    const label = this.get('label')
 
     if (label) {
       return `${verb} ${label} combobox`
@@ -150,19 +151,20 @@ export default Component.extend({
 
   @readOnly
   @computed('data', 'filter', 'onInput')
-  items (data, filter, onInput) {
+  get items () {
+    const data = this.get('data')
     // If no data to filter we are done
     if (!data) {
       return []
     }
 
     // External filtering
-    if (typeOf(onInput) === 'function') {
+    if (typeOf(this.get('onInput')) === 'function') {
       return data
     }
 
     // Internal filtering
-
+    const filter = this.get('filter')
     filter = filter ? filter.toLowerCase() : ''
 
     return data
@@ -190,7 +192,10 @@ export default Component.extend({
   @readOnly
   @computed('data', 'selected', 'internalSelectedValue')
   /* eslint-disable complexity */
-  selectedItems (items, selected, selectedValue) {
+  get selectedItems () {
+    const selectedValue = this.get('internalSelectedValue')
+    let items = this.get('data')
+
     if (selectedValue !== undefined) {
       return items.filter((item) => {
         if (typeOf(selectedValue) === 'array') {
@@ -200,6 +205,8 @@ export default Component.extend({
         return item.value === selectedValue
       })
     }
+
+    let selected = this.get('selected')
 
     if (typeOf(selected) === 'array') {
       return selected
@@ -224,13 +231,15 @@ export default Component.extend({
    * @param {Number} tabIndex - tab index
    * @returns {Number} tab index
    */
-  computedTabIndex (disabled, tabIndex) {
-    return disabled ? -1 : tabIndex
+  get computedTabIndex () {
+    return this.get('disabled') ? -1 : this.get('tabIndex')
   },
 
   @readOnly
   @computed('selectedItems')
-  text (selectedItems) {
+  get text () {
+    const selectedItems = this.get('selectedItems')
+
     switch (selectedItems.length) {
       case 0:
         return null
@@ -253,7 +262,8 @@ export default Component.extend({
    * @param {String} width the width property specified
    * @returns {String} the completed style string
    */
-  style (width) {
+  get style () {
+    const width = this.get('width')
     let styles = ''
 
     // if a property is not falsy, append it to the style string
@@ -271,7 +281,7 @@ export default Component.extend({
    * (@theotherdude 12/20/2017)
    * @returns {string} 'frost-select-dropdown'
    */
-  frostSelectDropdownName () {
+  get frostSelectDropdownName () {
     return 'frost-select-dropdown'
   },
 

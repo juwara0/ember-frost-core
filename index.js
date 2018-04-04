@@ -73,15 +73,6 @@ function isObject (object) {
   return object !== null && typeof object === 'object'
 }
 
-/**
- * Default the babel options
- * @param {Object} options - the options for this build
- */
-function defaultBabel (options) {
-  options.babel = options.babel || {}
-  options.babel.optional = options.babel.optional || []
-}
-
 module.exports = {
   name: 'ember-frost-core',
 
@@ -111,18 +102,6 @@ module.exports = {
     }
   },
 
-  init: function (app) {
-    this.options = this.options || {}
-    defaultBabel(this.options)
-
-    if (this.options.babel.optional.indexOf('es7.decorators') === -1) {
-      this.options.babel.optional.push('es7.decorators')
-    }
-    if (this._super.init) {
-      this._super.init.apply(this, arguments)
-    }
-  },
-
   flattenIcons: function (iconNames, subDir, srcDir) {
     fs.readdirSync(srcDir).forEach((fileName) => {
       const filePath = path.join(srcDir, fileName)
@@ -141,13 +120,13 @@ module.exports = {
   treeForAddon: function (tree) {
     const addonTree = this._super.treeForAddon.call(this, tree)
 
-    const iconNames = {}
+    let iconNames = {}
 
     const addonPackages = pickBy(this.project.addonPackages, (addonPackage) => {
       return has(addonPackage.pkg, 'ember-frost-icon-pack')
     })
 
-    for (const addonName in addonPackages) {
+    for (let addonName in addonPackages) {
       if (addonPackages.hasOwnProperty(addonName)) {
         const addonPackage = addonPackages[addonName]
         const iconPack = addonPackage.pkg['ember-frost-icon-pack']

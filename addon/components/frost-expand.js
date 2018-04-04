@@ -4,7 +4,7 @@
 import { run } from '@ember/runloop';
 
 import layout from '../templates/components/frost-expand'
-import computed, {readOnly} from 'ember-computed-decorators'
+import {computed, readOnly} from 'ember-decorators/object'
 import Component from './frost-component'
 import {PropTypes} from 'ember-prop-types'
 import {validators} from 'ember-prop-types/utils/prop-types'
@@ -55,8 +55,8 @@ export default Component.extend({
    * @param {*} content - content to display
    * @returns {Boolean} whether or not the content is a component
    */
-  isComponentContent (content) {
-    return validators.EmberComponent(null, 'content', content, null, false, false)
+  get isComponentContent () {
+    return validators.EmberComponent(null, 'content', this.get('content'), null, false, false)
   },
 
   // == Functions =============================================================

@@ -6,7 +6,7 @@ import $ from 'jquery';
 import layout from '../templates/components/frost-radio-button';
 import {cloneEvent} from '../utils'
 import Component from './frost-component'
-import computed, {readOnly} from 'ember-computed-decorators'
+import {computed, readOnly} from 'ember-decorators/object'
 import {PropTypes} from 'ember-prop-types'
 
 export default Component.extend({
@@ -66,8 +66,8 @@ export default Component.extend({
    * @param {String} value - radio button value
    * @returns {Boolean} whether this radio button is checked or not
    */
-  checked (selectedValue, value) { // eslint-disable-line
-    return selectedValue === value
+  get checked () { // eslint-disable-line
+    return this.get('selectedValue') === this.get('value')
   },
 
   @computed('receivedHook')
@@ -77,8 +77,8 @@ export default Component.extend({
    * @param {String} receivedHook - hook received from parent
    * @returns {String} the concatenated hook name
    */
-  hook (receivedHook) { // eslint-disable-line
-    const radioGroupHook = receivedHook || ''
+  get hook () { // eslint-disable-line
+    const radioGroupHook = this.getWithDefault('receivedHook', '')
     return `${radioGroupHook}-button`
   },
 
@@ -89,7 +89,8 @@ export default Component.extend({
    * @param {String} value - radio button's value
    * @returns {String} the hook qualifiers
    */
-  hookQualifiers (value) {
+  get hookQualifiers () {
+    const value = this.get('value')
     if (value) {
       return {value}
     }
@@ -102,8 +103,8 @@ export default Component.extend({
    * @param {Boolean} disabled - is this button disabled
    * @returns {Number} the tabindex value
    */
-  tabindex (disabled) {
-    return disabled ? -1 : 0
+  get tabindex () {
+    return this.get('disabled') ? -1 : 0
   },
 
   // == Functions ===============================================================

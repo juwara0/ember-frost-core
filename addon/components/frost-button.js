@@ -7,7 +7,7 @@ import { on } from '@ember/object/evented';
 import layout from '../templates/components/frost-button';
 import Component from './frost-component'
 import Ember from 'ember'
-import computed, {readOnly} from 'ember-computed-decorators'
+import {computed, readOnly} from 'ember-decorators/object'
 import {PropTypes} from 'ember-prop-types'
 const {
   Logger,
@@ -110,8 +110,8 @@ export default Component.extend({
    * @param {String} text - button text
    * @returns {Boolean} whether or not button is text only (no icon)
    */
-  isTextOnly (icon, text) {
-    return !isEmpty(text) && isEmpty(icon)
+  get isTextOnly () {
+    return !isEmpty(this.get('text')) && isEmpty(this.get('icon'))
   },
 
   @readOnly
@@ -122,8 +122,8 @@ export default Component.extend({
    * @param {String} text - button text
    * @returns {Boolean} whether or not button is icon only (no text)
    */
-  isIconOnly (icon, text) {
-    return !isEmpty(icon) && isEmpty(text)
+  get isIconOnly () {
+    return !isEmpty(this.get('icon')) && isEmpty(this.get('text'))
   },
 
   @readOnly
@@ -134,8 +134,8 @@ export default Component.extend({
    * @param {String} text - button text
    * @returns {Boolean} whether or not button contains icon and text
    */
-  isIconAndText (icon, text) {
-    return !isEmpty(icon) && !isEmpty(text)
+  get isIconAndText () {
+    return !isEmpty(this.get('icon')) && !isEmpty(this.get('text'))
   },
 
   /* eslint-disable complexity */
@@ -151,18 +151,21 @@ export default Component.extend({
    * @param {Boolean} vertical - whether or not icon is above text
    * @returns {String} extra classNames
    */
-  extraClasses (design, icon, priority, size, text, vertical) {
+  get extraClasses () {
     const classes = []
 
+    const design = this.get('design')
     if (validDesignClasses.indexOf(design) !== -1) {
       classes.push(design)
 
       // design button needs to have either text or icon property present
-      if (text === '' && icon === '') {
+      if (this.get('text') === '' && this.get('icon') === '') {
         Logger.error('Error: The `design` property requires `text` or `icon` property to be specified.')
         return
       }
 
+      const priority = this.get('priority')
+      const size = this.get('size')
       // display warning when design property is used together with size and/or priority
       if (priority !== '' || size !== '') {
         Logger.warn('Warning: The `design` property takes precedence over `size` and `priority`.')
@@ -177,7 +180,7 @@ export default Component.extend({
 
     this.addPriorityClass(priority, classes)
 
-    if (vertical) {
+    if (this.get('vertical')) {
       classes.push('vertical')
     }
 

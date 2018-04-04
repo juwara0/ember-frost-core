@@ -12,7 +12,7 @@ import Ember from 'ember';
 const {
   Logger
 } = Ember
-import computed, {readOnly} from 'ember-computed-decorators'
+import {computed, readOnly} from 'ember-decorators/object'
 import {HookMixin} from 'ember-hook'
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'
 import SpreadMixin from 'ember-spread'
@@ -206,11 +206,13 @@ export default LinkComponent.extend(PropTypeMixin, HookMixin, SpreadMixin, {
    * @param {String} size - link size
    * @returns {String} extra classNames
    */
-  extraClasses (design, priority, size) {
+  get extraClasses () {
     const classes = []
 
-    this.addDesignClass(design, classes)
+    this.addDesignClass(this.get('design'), classes)
 
+    const priority = this.get('priority')
+    const size = this.get('size')
     if (classes.length !== 0) {
       // display warning when design property is used together with size and/or priority
       if (priority || size) {

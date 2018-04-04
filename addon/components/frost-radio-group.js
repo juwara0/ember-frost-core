@@ -3,7 +3,7 @@
  */
 import layout from '../templates/components/frost-radio-group'
 import Component from './frost-component'
-import computed, {readOnly} from 'ember-computed-decorators'
+import {computed, readOnly} from 'ember-decorators/object'
 import {PropTypes} from 'ember-prop-types'
 
 export default Component.extend({
@@ -50,7 +50,8 @@ export default Component.extend({
    * @param {array} inputs a list of inputs
    * @returns {array} an array of inputs with default values set
    */
-  meshedInputs (inputs) {
+  get meshedInputs () {
+    const inputs = this.get('inputs')
     return inputs.map((input) => {
       input.size = input.size || 'small'
       return input
