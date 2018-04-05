@@ -10,7 +10,7 @@ import { typeOf } from '@ember/utils';
 import layout from '../templates/components/frost-select';
 import keyCodes from '../utils/key-codes'
 import Component from './frost-component'
-import {computed, readOnly} from 'ember-decorators/object'
+import {computed} from 'ember-decorators/object'
 import {task, timeout} from 'ember-concurrency'
 import {PropTypes} from 'ember-prop-types'
 
@@ -136,7 +136,6 @@ export default Component.extend({
 
   // == Computed Properties ===================================================
 
-  @readOnly
   @computed('label', 'opened')
   get ariaLabel () {
     const verb = this.get('opened') ? 'Hide' : 'Show'
@@ -149,10 +148,9 @@ export default Component.extend({
     return `${verb} combobox`
   },
 
-  @readOnly
   @computed('data', 'filter', 'onInput')
   get items () {
-    const data = this.get('data')
+    let data = this.get('data')
     // If no data to filter we are done
     if (!data) {
       return []
@@ -164,7 +162,7 @@ export default Component.extend({
     }
 
     // Internal filtering
-    const filter = this.get('filter')
+    let filter = this.get('filter')
     filter = filter ? filter.toLowerCase() : ''
 
     return data
@@ -189,7 +187,6 @@ export default Component.extend({
       })
   },
 
-  @readOnly
   @computed('data', 'selected', 'internalSelectedValue')
   /* eslint-disable complexity */
   get selectedItems () {
@@ -222,7 +219,6 @@ export default Component.extend({
   },
   /* eslint-enable complexity */
 
-  @readOnly
   @computed('disabled', 'tabIndex')
   /**
    * Get appropriate tab index
@@ -235,7 +231,6 @@ export default Component.extend({
     return this.get('disabled') ? -1 : this.get('tabIndex')
   },
 
-  @readOnly
   @computed('selectedItems')
   get text () {
     const selectedItems = this.get('selectedItems')
@@ -254,7 +249,6 @@ export default Component.extend({
     return `${selectedItems.length} items selected`
   },
 
-  @readOnly
   @computed('width')
 
   /**
@@ -273,7 +267,6 @@ export default Component.extend({
     return htmlSafe(styles);
   },
 
-  @readOnly
   @computed('items', 'selectedItems')
   /**
    * As of Ember 2.10, we have to make this a computed property to tell Ember to update our frost-select-dropdown.

@@ -6,7 +6,7 @@ import $ from 'jquery';
 import layout from '../templates/components/frost-radio-button';
 import {cloneEvent} from '../utils'
 import Component from './frost-component'
-import {computed, readOnly} from 'ember-decorators/object'
+import {computed} from 'ember-decorators/object'
 import {PropTypes} from 'ember-prop-types'
 
 export default Component.extend({
@@ -82,7 +82,11 @@ export default Component.extend({
     return `${radioGroupHook}-button`
   },
 
-  @readOnly
+  set hook (value) {
+    const radioGroupHook = this.getWithDefault('receivedHook', '')
+    return `${radioGroupHook}-button`
+  },
+
   @computed('value')
   /**
    * Determine hook qualifiers for radio-button
@@ -96,7 +100,6 @@ export default Component.extend({
     }
   },
 
-  @readOnly
   @computed('disabled')
   /**
    * Determine tabindex value

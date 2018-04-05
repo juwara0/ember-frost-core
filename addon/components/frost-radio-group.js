@@ -3,7 +3,7 @@
  */
 import layout from '../templates/components/frost-radio-group'
 import Component from './frost-component'
-import {computed, readOnly} from 'ember-decorators/object'
+import {computed} from 'ember-decorators/object'
 import {PropTypes} from 'ember-prop-types'
 
 export default Component.extend({
@@ -43,7 +43,6 @@ export default Component.extend({
 
   // == Computed Properties ===================================================
 
-  @readOnly
   @computed('inputs')
   /**
    * Set the default values for the inputs.

@@ -13,8 +13,8 @@ describe(test.label, function () {
     it('should set checked property', function () {
       this.render(hbs`
         {{frost-radio-button
-          checked=true
           hook='myRadioButton'
+          selectedValue='testValue'
           value='testValue'
         }}
       `)
@@ -81,6 +81,26 @@ describe(test.label, function () {
       this.render(hbs`
         {{frost-radio-button
           hook='my-radio-button'
+          value=value
+        }}
+      `)
+
+      expect(
+        $hook('-button-input', {value: value}).hasClass('frost-radio-button-input'),
+        'input hook is set'
+      ).to.equal(true)
+    })
+  })
+
+  describe('receivedHook property', function () {
+    it('should set when passed into radio-button', function () {
+      const value = 'testValue'
+
+      this.set('value', value)
+
+      this.render(hbs`
+        {{frost-radio-button
+          receivedHook='my-radio'
           value=value
         }}
       `)

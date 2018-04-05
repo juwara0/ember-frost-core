@@ -10,7 +10,7 @@ import { isArray } from '@ember/array';
 import { isEmpty } from '@ember/utils';
 import { merge } from '@ember/polyfills';
 import { run } from '@ember/runloop';
-import {computed, readOnly} from 'ember-decorators/object'
+import {computed} from 'ember-decorators/object'
 import {task, timeout} from 'ember-concurrency'
 import {PropTypes} from 'ember-prop-types'
 
@@ -86,7 +86,6 @@ export default Component.extend({
   },
 
   // == Computed Properties ===================================================
-  @readOnly
   @computed('wrapLabels')
   /**
    * The class names for the frost-select drop down
@@ -101,7 +100,6 @@ export default Component.extend({
     return classNames.join(' ')
   },
 
-  @readOnly
   @computed('multiselect')
   /**
    * The class names for the frost select dropdown options
@@ -116,7 +114,6 @@ export default Component.extend({
     return classNames.join(' ')
   },
 
-  @readOnly
   @computed('multiselect')
   /**
    * The class names for the frost select dropdown secondary options
@@ -131,7 +128,6 @@ export default Component.extend({
     return classNames.join(' ')
   },
 
-  @readOnly
   @computed('bottom', 'left', 'maxHeight', 'top', 'width')
   /**
    * Get inline style to properly position dropdown relative to select input
@@ -166,7 +162,6 @@ export default Component.extend({
     return htmlSafe(style);
   },
 
-  @readOnly
   @computed('bottom', 'left', 'top', 'width')
   /**
    * Get inline style to properly position arrow that connects dropdown to
@@ -192,7 +187,6 @@ export default Component.extend({
     return htmlSafe(style.join(';'));
   },
 
-  @readOnly
   @computed('focusedIndex', 'items', 'selectedItems')
   /**
    * Get render items
@@ -231,10 +225,9 @@ export default Component.extend({
         label: get(item, 'label'),
         secondaryLabels: secondaryLabels,
         hasSecondaryLabels: isArray(secondaryLabels),
-        @readOnly
         @computed('secondaryLabels', 'hasSecondaryLabels')
-        displaySecondaryLabels (secondaryLabels, hasSecondaryLabels) {
-          if (hasSecondaryLabels) {
+        get displaySecondaryLabels () {
+          if (this.hasSecondaryLabels) {
             return secondaryLabels.join(' | ')
           }
           return ''
@@ -245,7 +238,6 @@ export default Component.extend({
     })
   },
 
-  @readOnly
   @computed('items')
   /**
    * Whether or not to show message for when no items are present

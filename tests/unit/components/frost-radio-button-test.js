@@ -136,7 +136,11 @@ describe(test.label, function () {
 
     it('should "onChange" not called when "checked" is set', function () {
       run(() => {
-        component.set('checked', true)
+        component.setProperties(
+          {
+            selectedValue: 'testValue',
+            value: 'testValue'
+          })
       })
 
       const keyPressed = component.keyPress({keyCode: 13})

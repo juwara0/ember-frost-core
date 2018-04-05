@@ -1,7 +1,7 @@
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
 import Controller from '@ember/controller';
-import {computed, readOnly} from 'ember-decorators/object'
+import {computed} from 'ember-decorators/object'
 
 export default Controller.extend({
   notifications: service('notification-messages'),
@@ -17,7 +17,6 @@ export default Controller.extend({
     text: 'custom second'
   },
 
-  @readOnly
   @computed('fontSize')
   get fontSizeStyle () {
     return htmlSafe(`font-size: ${this.get('fontSize')}px`);

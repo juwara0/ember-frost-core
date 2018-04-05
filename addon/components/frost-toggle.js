@@ -9,7 +9,7 @@ import Ember from 'ember';
 const {
   ViewUtils
 } = Ember
-import {computed, readOnly} from 'ember-decorators/object'
+import {computed} from 'ember-decorators/object'
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'
 import SpreadMixin from 'ember-spread'
 
@@ -82,21 +82,18 @@ export default Component.extend(SpreadMixin, PropTypeMixin, FrostEventsProxyMixi
 
   // == Computed Properties ===================================================
 
-  @readOnly
   @computed('trueValue', '_trueLabel')
   get _trueValue () {
     const trueValue = this.get('trueValue')
     return (trueValue === undefined) ? this.get('_trueLabel') : trueValue
   },
 
-  @readOnly
   @computed('falseValue', '_falseLabel')
   get _falseValue () {
     const falseValue = this.get('falseValue')
     return (falseValue === undefined) ? this.get('_falseLabel') : falseValue
   },
 
-  @readOnly
   @computed('value')
   get _isToggled () {
     return this._preferBoolean(this.get('value')) === this.get('_trueValue')

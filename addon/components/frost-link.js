@@ -12,7 +12,7 @@ import Ember from 'ember';
 const {
   Logger
 } = Ember
-import {computed, readOnly} from 'ember-decorators/object'
+import {computed} from 'ember-decorators/object'
 import {HookMixin} from 'ember-hook'
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'
 import SpreadMixin from 'ember-spread'
@@ -197,7 +197,6 @@ export default LinkComponent.extend(PropTypeMixin, HookMixin, SpreadMixin, {
   // == Computed properties ===================================================
 
   /* eslint-disable complexity */
-  @readOnly
   @computed('design', 'priority', 'size')
   /**
    * Get extra classes for links based on link's settings

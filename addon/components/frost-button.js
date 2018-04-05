@@ -7,7 +7,7 @@ import { on } from '@ember/object/evented';
 import layout from '../templates/components/frost-button';
 import Component from './frost-component'
 import Ember from 'ember'
-import {computed, readOnly} from 'ember-decorators/object'
+import {computed} from 'ember-decorators/object'
 import {PropTypes} from 'ember-prop-types'
 const {
   Logger,
@@ -102,7 +102,6 @@ export default Component.extend({
 
   // == Computed Properties ===================================================
 
-  @readOnly
   @computed('icon', 'text')
   /**
    * Determine whether or not button is text only (no icon)
@@ -114,7 +113,6 @@ export default Component.extend({
     return !isEmpty(this.get('text')) && isEmpty(this.get('icon'))
   },
 
-  @readOnly
   @computed('icon', 'text')
   /**
    * Determine whether or not button is icon only (no text)
@@ -126,7 +124,6 @@ export default Component.extend({
     return !isEmpty(this.get('icon')) && isEmpty(this.get('text'))
   },
 
-  @readOnly
   @computed('icon', 'text')
   /**
    * Determine whether or not button contains icon and text
@@ -139,7 +136,6 @@ export default Component.extend({
   },
 
   /* eslint-disable complexity */
-  @readOnly
   @computed('design', 'icon', 'priority', 'size', 'text', 'vertical')
   /**
    * Get extra classes for buttons based on button's settings
@@ -153,8 +149,10 @@ export default Component.extend({
    */
   get extraClasses () {
     const classes = []
-
     const design = this.get('design')
+    const priority = this.get('priority')
+    const size = this.get('size')
+
     if (validDesignClasses.indexOf(design) !== -1) {
       classes.push(design)
 
@@ -164,8 +162,6 @@ export default Component.extend({
         return
       }
 
-      const priority = this.get('priority')
-      const size = this.get('size')
       // display warning when design property is used together with size and/or priority
       if (priority !== '' || size !== '') {
         Logger.warn('Warning: The `design` property takes precedence over `size` and `priority`.')
