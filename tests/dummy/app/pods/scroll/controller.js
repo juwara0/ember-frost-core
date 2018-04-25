@@ -1,5 +1,6 @@
 import { inject as service } from '@ember/service';
 import Controller from '@ember/controller';
+import perfectScrollbar from 'perfectScrollbar'
 
 // BEGIN-SNIPPET scroll-controller
 export default Controller.extend({
@@ -64,7 +65,7 @@ export default Controller.extend({
 
     onMouseEnterHandler (element) {
       element.innerHTML = 'mouse entered and will update the scrollbars'
-      window.Ps.update(element)
+      PerfectScrollbar.update(element)
     }
   }
 })

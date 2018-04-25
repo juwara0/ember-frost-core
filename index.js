@@ -97,8 +97,10 @@ module.exports = {
       app.import(path.join(robotoPath, 'Roboto-Regular.woff2'), {destDir: 'assets/fonts'})
       app.import(path.join(robotoPath, 'stylesheet.css'))
       app.import(path.join('vendor', 'svg4everybody.min.js'))
-      app.import(path.join('vendor', 'perfect-scrollbar.min.js'))
-      app.import(path.join('vendor', 'perfect-scrollbar.min.css'))
+      app.import(path.join('node_modules', 'perfect-scrollbar', 'dist', 'js', 'perfect-scrollbar.min.js'), {
+        using: [{ transformation: 'cjs', as: 'perfectScrollbar' }],
+      })
+      app.import(path.join('node_modules', 'perfect-scrollbar', 'dist', 'css', 'perfect-scrollbar.min.css'))
     }
   },
 

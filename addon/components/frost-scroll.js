@@ -7,6 +7,7 @@ import { run } from '@ember/runloop';
 import { typeOf } from '@ember/utils';
 import Component from './frost-component';
 import {PropTypes} from 'ember-prop-types'
+import perfectScrollbar from 'perfectScrollbar'
 
 export default Component.extend({
 
@@ -35,7 +36,7 @@ export default Component.extend({
 
     run.scheduleOnce('afterRender', this, () => {
       if (!this.isDestroying && !this.isDestroyed) {
-        window.Ps.initialize(this.$()[0], this.get('psOptions') || {})
+        PerfectScrollbar.initialize(this.$()[0], this.get('psOptions') || {})
       }
     })
 
@@ -126,7 +127,7 @@ export default Component.extend({
    * @returns {undefined}
    */
   _unregisterEvents () {
-    window.Ps.destroy(this.$()[0])
+    PerfectScrollbar.destroy(this.$()[0])
 
     if (typeOf(this.onScrollUp) === 'function') {
       this.$().off('ps-scroll-up', this._scrollUpHandler)
@@ -176,7 +177,7 @@ export default Component.extend({
     this._unregisterEvents()
   },
   didRender () {
-    window.Ps.update(this.$()[0])
+    PerfectScrollbar.update(this.$()[0])
   },
   // == Actions ===============================================================
 
