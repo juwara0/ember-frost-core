@@ -7,7 +7,7 @@ import { on } from '@ember/object/evented';
 import layout from '../templates/components/frost-button';
 import Component from './frost-component'
 import Ember from 'ember'
-import {computed} from 'ember-decorators/object'
+import {computed} from '@ember-decorators/object'
 import {PropTypes} from 'ember-prop-types'
 const {
   Logger,

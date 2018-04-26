@@ -4,7 +4,7 @@
 import FrostEventsProxy from '../mixins/frost-events-proxy'
 import layout from '../templates/components/frost-password'
 import Component from './frost-component'
-import {computed} from 'ember-decorators/object'
+import {computed} from '@ember-decorators/object'
 import {task, timeout} from 'ember-concurrency'
 import {PropTypes} from 'ember-prop-types'
 

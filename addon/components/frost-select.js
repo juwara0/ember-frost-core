@@ -10,7 +10,7 @@ import { typeOf } from '@ember/utils';
 import layout from '../templates/components/frost-select';
 import keyCodes from '../utils/key-codes'
 import Component from './frost-component'
-import {computed} from 'ember-decorators/object'
+import {computed} from '@ember-decorators/object'
 import {task, timeout} from 'ember-concurrency'
 import {PropTypes} from 'ember-prop-types'
 
