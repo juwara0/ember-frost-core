@@ -65,7 +65,7 @@ export default Controller.extend({
 
     onMouseEnterHandler (element) {
       element.innerHTML = 'mouse entered and will update the scrollbars'
-      PerfectScrollbar.update(element)
+      perfectScrollbar.update(element)
     }
   }
 })
