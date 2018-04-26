@@ -1,13 +1,13 @@
-const Reporter = require('ember-test-utils/reporter')
-
 module.exports = {
   test_page: 'tests/index.html?hidepassed',
   disable_watching: true,
   framework: 'mocha',
+  // used by CI and `ember test`
   launch_in_ci: [
     'Chrome',
     'Firefox'
   ],
+  // used by `ember test --server`
   launch_in_dev: [
     'Chrome'
   ],
@@ -24,6 +24,5 @@ module.exports = {
         '--window-size=1440,900'
       ].filter(Boolean)
     }
-  },
-  reporter: new Reporter()
+  }
 }

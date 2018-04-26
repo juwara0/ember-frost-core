@@ -52,27 +52,6 @@ describe(test.label, function () {
     ).to.equal(true)
   })
 
-  it('should set dependent keys correctly', function () {
-    const checkedDependentKeys = [
-      'selectedValue',
-      'value'
-    ]
-
-    const tabindexDependentKeys = [
-      'disabled'
-    ]
-
-    expect(
-      component.checked._dependentKeys,
-      'Dependent keys are correct for checked()'
-    ).to.eql(checkedDependentKeys)
-
-    expect(
-      component.tabindex._dependentKeys,
-      'Dependent keys are correct for tabindex()'
-    ).to.eql(tabindexDependentKeys)
-  })
-
   describe('"checked" computed property', function () {
     const selectedValue = 'testValue'
 

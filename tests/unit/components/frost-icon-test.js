@@ -38,18 +38,6 @@ describe(test.label, function () {
     ).to.equal(true)
   })
 
-  it('should set dependent keys correctly', function () {
-    const iconClassDependentKeys = [
-      'icon',
-      'pack'
-    ]
-
-    expect(
-      component.iconClass._dependentKeys,
-      'Dependent keys are correct for iconClass()'
-    ).to.eql(iconClassDependentKeys)
-  })
-
   it('should have the expected Mixins', function () {
     expect(
       PropTypeMixin.detect(component),

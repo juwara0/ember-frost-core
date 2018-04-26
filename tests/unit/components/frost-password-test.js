@@ -78,26 +78,6 @@ describe(test.label, function () {
     ).to.equal(true)
   })
 
-  it('should set dependent keys correctly', function () {
-    const revealMessageDependentKeys = [
-      'isRevealed'
-    ]
-
-    const typeDependentKeys = [
-      'isRevealed'
-    ]
-
-    expect(
-      component.revealMessage._dependentKeys,
-      'Dependent keys are correct for revealMessage()'
-    ).to.eql(revealMessageDependentKeys)
-
-    expect(
-      component.type._dependentKeys,
-      'Dependent keys are correct for type()'
-    ).to.eql(typeDependentKeys)
-  })
-
   describe('"revealMessage" computed property', function () {
     it('should set to "Hide" when "isRevealed" is true', function () {
       const isRevealed = true
