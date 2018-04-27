@@ -1,7 +1,5 @@
-import { capitalize } from '@ember/string';
 import Controller from '@ember/controller';
-import { computed } from '@ember/object';
-import iconPacks from 'modules/ember-frost-core/icon-packs'
+import iconPack from 'modules/ember-frost-core/icons'
 
 export default Controller.extend({
   backgroundColors: [
@@ -13,19 +11,18 @@ export default Controller.extend({
     'bg-main-button-color'
   ],
   backgroundColor: 'bg-tile-color',
-  iconPacks: computed('iconPacks', () => {
-    return Object.keys(iconPacks).map((name) => {
-      return {
-        name: capitalize(name),
-        icons: iconPacks[name].map((icon) => {
-          return {
-            name: icon,
-            markdown: `\`${icon}\``
-          }
-        })
-      };
-    });
-  }).readOnly(),
+
+  init () {
+    this.set(
+      'icons',
+      iconPack.map((icon) => {
+        return {
+          name: icon,
+          markdown: `\`${icon}\``
+        }
+      })
+    )
+  },
 
   actions: {
     colorSelected (color) {

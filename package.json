@@ -1,6 +1,6 @@
 {
   "name": "ember-frost-core",
-  "version": "7.0.0",
+  "version": "8.2.1",
   "description": "The library of core frost components",
   "directories": {
     "doc": "doc",
@@ -75,14 +75,10 @@
   },
   "keywords": [
     "ember-addon",
-    "ember-frost-icon-pack",
     "frost"
   ],
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  },
-  "ember-frost-icon-pack": {
-    "name": "frost"
   },
   "dependencies": {
     "@ember-decorators/babel-transforms": "^2.0.0",
@@ -93,19 +89,19 @@
     "broccoli-merge-trees": "^3.0.0",
     "broccoli-svgstore": "^0.4.2",
     "ember-cli-babel": "^6.6.0",
-    "ember-cli-cjs-transform": "^1.2.0",
     "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-sass": "^7.1.7",
+    "ember-cli-svgstore": "ciena-blueplanet/ember-cli-svgstore#977df1cf58ae43b1d98a591573c3e06947744321",
+    "ember-cli-version-checker": "~2.0.0",
     "ember-concurrency": "^0.8.17",
     "ember-decorators": "^1.3.4",
     "ember-elsewhere": "^1.0.4",
     "ember-hook": "^1.4.2",
     "ember-prop-types": "^7.0.2",
     "ember-spread": "^5.0.0",
-    "ember-truth-helpers": "^2.0.0",
-    "perfect-scrollbar": "0.6.14"
+    "ember-truth-helpers": "^2.0.0"
   },
   "pr-bumper": {
-    "coverage": 94.22
+    "coverage": 93.2
   }
 }

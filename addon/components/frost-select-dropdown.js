@@ -49,6 +49,7 @@ export default Component.extend({
     // options
     $element: PropTypes.object.isRequired,
     filter: PropTypes.string,
+    filterType: PropTypes.oneOf(['startsWith', 'contains']),
     items: PropTypes.arrayOf(PropTypes.object).isRequired,
     multiselect: PropTypes.bool,
     onClose: PropTypes.func.isRequired,
@@ -76,6 +77,7 @@ export default Component.extend({
   getDefaultProps () {
     return {
       // options
+      filterType: 'contains',
 
       // state
       bottom: 0,
@@ -295,6 +297,15 @@ export default Component.extend({
     }
   },
 
+  _getRegexPattern (filter) {
+    if (this.filterType === 'startsWith') {
+      // 'b' in bruce banner would only affect the 'b' in bruce
+      return new RegExp('^[ \n\r]*' + filter.replace(/[.*+?^${}()|[\]\\]/, '\\$&'), 'i')
+    }
+    // 'r' in bruce banner would affect both the 'r' in bruce as well as in banner
+    return new RegExp(filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi')
+  },
+
   /* eslint-disable complexity */
   _handleArrowKey (upArrow) {
     let focusedIndex = this.get('focusedIndex')
@@ -417,7 +428,7 @@ export default Component.extend({
     const secondaryTextElements = dropdownListElement.querySelectorAll('.frost-select-list-secondary-item-text')
     const scrollTop = dropdownListElement.scrollTop
     const wrapLabels = this.get('wrapLabels')
-    const updateText = function (texElements, clonedTextElements) {
+    const updateText = (texElements, clonedTextElements) => {
       Array.from(texElements).forEach((textElement, index) => {
         if (!wrapLabels) {
           const clonedTextElement = clonedTextElements[index]
@@ -430,8 +441,10 @@ export default Component.extend({
         }
 
         if (filter) {
-          const pattern = new RegExp(filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi')
-          const textWithMatch = textElement.textContent.replace(pattern, '<u>$&</u>')
+          const pattern = this._getRegexPattern(filter)
+          const textWithMatch = textElement.textContent.split('|').map((label) => {
+            return label.replace(pattern, '<u>$&</u>').trim()
+          }).join(' | ')
 
           // If rendered text has changed, update it
           if (textElement.innerHTML !== textWithMatch) {
@@ -455,7 +468,6 @@ export default Component.extend({
     // Make sure we scroll back to where the user was
     document.getElementById('frost-select-list').scrollTop = scrollTop
   },
-
   // == Tasks =================================================================
 
   updateTask: task(function * () {
