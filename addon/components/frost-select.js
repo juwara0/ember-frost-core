@@ -1,7 +1,7 @@
 /**
  * Component definition for frost-select component
  */
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 
 import $ from 'jquery';
 import { on } from '@ember/object/evented';

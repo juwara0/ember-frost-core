@@ -1,7 +1,7 @@
 /**
  * Component definition for frost-select-dropdown component
  */
-import { htmlSafe } from '@ember/string';
+import { htmlSafe } from '@ember/template';
 
 import $ from 'jquery';
 import { deprecate } from '@ember/application/deprecations';
