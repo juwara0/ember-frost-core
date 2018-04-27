@@ -10,7 +10,7 @@ import { isArray } from '@ember/array';
 import { isEmpty } from '@ember/utils';
 import { merge } from '@ember/polyfills';
 import { run } from '@ember/runloop';
-import {computed} from '@ember-decorators/object'
+import {computed} from 'ember-decorators/object'
 import {task, timeout} from 'ember-concurrency'
 import {PropTypes} from 'ember-prop-types'
 

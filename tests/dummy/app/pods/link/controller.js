@@ -1,7 +1,7 @@
 import { inject as service } from '@ember/service';
 import { htmlSafe } from '@ember/string';
 import Controller from '@ember/controller';
-import {computed} from '@ember-decorators/object'
+import {computed} from 'ember-decorators/object'
 
 export default Controller.extend({
   notifications: service('notification-messages'),

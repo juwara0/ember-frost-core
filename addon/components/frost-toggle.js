@@ -9,7 +9,7 @@ import Ember from 'ember';
 const {
   ViewUtils
 } = Ember
-import {computed} from '@ember-decorators/object'
+import {computed} from 'ember-decorators/object'
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'
 import SpreadMixin from 'ember-spread'
 

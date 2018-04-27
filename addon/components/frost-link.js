@@ -12,7 +12,7 @@ import Ember from 'ember';
 const {
   Logger
 } = Ember
-import {computed} from '@ember-decorators/object'
+import {computed} from 'ember-decorators/object'
 import {HookMixin} from 'ember-hook'
 import PropTypeMixin, {PropTypes} from 'ember-prop-types'
 import SpreadMixin from 'ember-spread'
