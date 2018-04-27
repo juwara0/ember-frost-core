@@ -5,11 +5,13 @@ import { htmlSafe } from '@ember/template';
 
 import $ from 'jquery';
 import { deprecate } from '@ember/application/deprecations';
-import { get } from '@ember/object';
+import { computed as emberComputed, get } from '@ember/object';
 import { isArray } from '@ember/array';
 import { isEmpty } from '@ember/utils';
 import { merge } from '@ember/polyfills';
 import { run } from '@ember/runloop';
+import Ember from 'ember'
+const {defineProperty} = Ember
 import {computed} from 'ember-decorators/object'
 import {task, timeout} from 'ember-concurrency'
 import {PropTypes} from 'ember-prop-types'
@@ -220,21 +222,21 @@ export default Component.extend({
         classNames.push('frost-select-list-item-focused')
       }
 
-      return {
+      let renderItemsObject = {
         className: classNames.join(' '),
         label: get(item, 'label'),
         secondaryLabels: secondaryLabels,
         hasSecondaryLabels: isArray(secondaryLabels),
-        @computed('secondaryLabels', 'hasSecondaryLabels')
-        get displaySecondaryLabels () {
-          if (this.hasSecondaryLabels) {
-            return secondaryLabels.join(' | ')
-          }
-          return ''
-        },
         selected: isSelected,
         value: get(item, 'value')
       }
+      defineProperty(renderItemsObject, 'displaySecondaryLabels', emberComputed('secondaryLabels', 'hasSecondaryLabels', function() {
+        if (this.hasSecondaryLabels) {
+          return this.secondaryLabels.join(' | ')
+        }
+        return ''
+      }))
+      return renderItemsObject
     })
   },
 
