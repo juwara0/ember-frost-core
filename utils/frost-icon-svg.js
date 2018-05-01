@@ -35,6 +35,7 @@ const flattenIcons = function (srcDir, subDir = '', iconNames = []) {
  * @returns {Object} Broccoli tree
  */
 const generateIconsForDocumentation = function(svgSourceDir = 'frost-icon-svgs') {
+
     const iconNameTree = writeFile(
       `modules/${this.name}/icons.js`,
       `export default ${JSON.stringify(flattenIcons(svgSourceDir), null, 2)}`
@@ -43,15 +44,22 @@ const generateIconsForDocumentation = function(svgSourceDir = 'frost-icon-svgs')
     let output = iconNameTree
 
     // The transpiling was done on the output of `treeForAddon` < `ember-cli@2.12.0`
-    // We need to manually transpile for >= `embe-cli@2.12.0`
+    // We need to manually transpile for >= `ember-cli@2.12.0`
     const checker = new VersionChecker(this)
+    const emberCliVersion = checker.for('ember-cli')
 
-    if (checker.for('ember-cli').satisfies('>= 2.12.0')) {
+    if (emberCliVersion.gte('2.12.0') && emberCliVersion.lt('2.14.0')) {
       const addonOptions = getAddonOptions.call(this)
       if (addonOptions.babel) {
         const BabelTranspiler = require('broccoli-babel-transpiler')
         output = new BabelTranspiler(iconNameTree, addonOptions.babel)
       }
+    }
+
+    if (emberCliVersion.gte('2.14.0')) {
+      const addonOptions = getAddonOptions.call(this)
+      const addon = this.addons.find(addon => addon.name === 'ember-cli-babel')
+      output = addon.transpileTree(iconNameTree, addonOptions.babel)
     }
 
     return output
@@ -63,7 +71,8 @@ const generateIconsForDocumentation = function(svgSourceDir = 'frost-icon-svgs')
  * @returns {Object}
  */
 const getAddonOptions = function() {
-    return (this.parent && this.parent.options) || (this.app && this.app.options) || {}
+     const addonOptions = this._findHost.call(this)
+     return addonOptions.options
 }
 
 /**
