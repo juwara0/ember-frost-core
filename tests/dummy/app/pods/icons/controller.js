@@ -13,6 +13,7 @@ export default Controller.extend({
   backgroundColor: 'bg-tile-color',
 
   init () {
+    this._super(...arguments)
     this.set(
       'icons',
       iconPack.map((icon) => {

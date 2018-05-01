@@ -4,7 +4,8 @@ import {
   expectWithState,
   open
 } from 'ember-frost-core/test-support/frost-autocomplete'
-import Ember from 'ember'
+import $ from 'jquery';
+import { run } from '@ember/runloop';
 import {keyCodes} from 'ember-frost-core/utils'
 import {$hook} from 'ember-hook'
 import wait from 'ember-test-helpers/wait'
@@ -13,7 +14,6 @@ import hbs from 'htmlbars-inline-precompile'
 import {afterEach, beforeEach, describe, it} from 'mocha'
 import sinon from 'sinon'
 
-const {$, run} = Ember
 const {BACKSPACE, DOWN_ARROW, ENTER, ESCAPE, SPACE, TAB, UP_ARROW} = keyCodes
 
 const test = integration('frost-autocomplete')

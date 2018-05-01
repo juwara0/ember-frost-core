@@ -1,6 +1,7 @@
 import {expect} from 'chai'
-import Ember from 'ember'
-const {$, assign, typeOf} = Ember
+import $ from 'jquery';
+import { assign } from '@ember/polyfills';
+import { typeOf } from '@ember/utils';
 import {$hook} from 'ember-hook'
 import wait from 'ember-test-helpers/wait'
 

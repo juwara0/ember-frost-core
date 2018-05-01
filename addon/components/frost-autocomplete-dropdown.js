@@ -1,8 +1,14 @@
 /**
  * Component definition for frost-select-dropdown component
  */
-import Ember from 'ember'
-import computed, {readOnly} from 'ember-computed-decorators'
+import { htmlSafe } from '@ember/template';
+
+import $ from 'jquery';
+import { get } from '@ember/object';
+import { isEmpty } from '@ember/utils';
+import { merge } from '@ember/polyfills';
+import { run } from '@ember/runloop';
+import {computed} from 'ember-decorators/object'
 import {task, timeout} from 'ember-concurrency'
 import {PropTypes} from 'ember-prop-types'
 
@@ -12,7 +18,6 @@ import {keyCodes} from '../utils'
 import {trimLongDataInElement} from '../utils/text'
 import Component from './frost-component'
 
-const {$, get, isEmpty, merge, run} = Ember
 const {ENTER, ESCAPE, TAB} = keyCodes
 
 const FPS = 1000 / 60 // Update at 60 frames per second
@@ -78,7 +83,6 @@ export default Component.extend({
     }
   },
 
-  @readOnly
   @computed('bottom', 'left', 'maxHeight', 'top', 'width')
   /**
    * Get inline style to properly position dropdown relative to select input
@@ -89,7 +93,10 @@ export default Component.extend({
    * @param {Number} width - width of dropdown
    * @returns {Handlebars.SafeString} position style/CSS for dropdown
    */
-  listStyle (bottom, left, maxHeight, top, width) {
+  get listStyle () {
+    let bottom = this.get('bottom')
+    let top = this.get('top')
+
     if (bottom !== 'auto') {
       bottom = `${bottom}px`
     }
@@ -100,16 +107,15 @@ export default Component.extend({
 
     const style = [
       `bottom:${bottom}`,
-      `left:${left}px`,
-      `max-height:${maxHeight}px`,
+      `left:${this.get('left')}px`,
+      `max-height:${this.get('maxHeight')}px`,
       `top:${top}`,
-      `width:${width}px`
+      `width:${this.get('width')}px`
     ].join(';')
 
-    return Ember.String.htmlSafe(style)
+    return htmlSafe(style)
   },
 
-  @readOnly
   @computed('focusedIndex', 'items', 'selectedValue')
   /**
    * Get render items
@@ -118,7 +124,9 @@ export default Component.extend({
    * @param {String} selectedValue - items that are currently selected
    * @returns {Object[]} render items
    */
-  renderItems (focusedIndex, items, selectedValue) {
+  get renderItems () {
+    const items = this.get('items')
+
     if (!items) {
       return []
     }
@@ -126,14 +134,14 @@ export default Component.extend({
     return items.map((item, index) => {
       const classNames = ['frost-autocomplete-list-item']
       const value = get(item, 'value')
-
+      const selectedValue = this.get('selectedValue')
       const isSelected = !isEmpty(selectedValue) && selectedValue === value
 
       if (isSelected) {
         classNames.push('frost-autocomplete-list-item-selected')
       }
 
-      if (index === focusedIndex) {
+      if (index === this.get('focusedIndex')) {
         classNames.push('frost-autocomplete-list-item-focused')
       }
 
@@ -146,14 +154,14 @@ export default Component.extend({
     })
   },
 
-  @readOnly
   @computed('items')
   /**
    * Whether or not to show message for when no items are present
    * @param {Object[]} items - items
    * @returns {Boolean} whether or not to show empty message
    */
-  showEmptyMessage (items) {
+  get showEmptyMessage () {
+    const items = this.get('items')
     return !items || items.length === 0
   },
 

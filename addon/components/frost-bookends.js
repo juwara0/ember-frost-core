@@ -54,9 +54,7 @@ export default Component.extend({
     const classNameBase = this.get('css')
     const scroll = this.$(`.${classNameBase}-scroll`).get(0)
     if (scroll.scrollHeight > scroll.clientHeight) {
-      run.schedule('sync', () => {
-        this.set('isContentScrolledBeneathFooter', true)
-      })
+      this.set('isContentScrolledBeneathFooter', true)
     }
   },
 

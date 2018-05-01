@@ -68,8 +68,8 @@ export default Component.extend({
    */
   _onFocus: on('focusIn', function (e) {
     // If an onFocus handler is defined, call it
-    if (this.attrs.onFocus) {
-      this.attrs.onFocus()
+    if (this.onFocus) {
+      this.onFocus()
     }
   }),
 

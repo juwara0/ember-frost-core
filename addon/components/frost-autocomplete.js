@@ -1,12 +1,15 @@
-import Ember from 'ember'
-import computed, {readOnly} from 'ember-computed-decorators'
+import { get } from '@ember/object';
+import { htmlSafe } from '@ember/template';
+import { on } from '@ember/object/evented';
+import { run } from '@ember/runloop';
+import { isEmpty, typeOf } from '@ember/utils';
+import {computed} from 'ember-decorators/object'
 import {task, timeout} from 'ember-concurrency'
 import {PropTypes} from 'ember-prop-types'
 import layout from '../templates/components/frost-autocomplete'
 import {keyCodes} from '../utils'
 import Component from './frost-component'
 
-const {get, isEmpty, on, run, typeOf} = Ember
 const {BACKSPACE, DOWN_ARROW, ENTER, UP_ARROW} = keyCodes
 
 export default Component.extend({
@@ -106,7 +109,6 @@ export default Component.extend({
     }
   },
 
-  @readOnly
   @computed('width')
 
   /**
@@ -114,17 +116,17 @@ export default Component.extend({
    * @param {String} width the width property specified
    * @returns {String} the completed style string
    */
-  style (width) {
+  get style () {
+    const width = this.get('width')
     let styles = ''
 
     // if a property is not falsy, append it to the style string
     // note that in the width case, we want the component interface to have absolute power over the width
     // so it will override any max or win widths to ensure ultimate control
     if (width) styles += `width: ${width}px; max-width: initial; min-width:initial; `
-    return Ember.String.htmlSafe(styles)
+    return htmlSafe(styles)
   },
 
-  @readOnly
   @computed('disabled', 'tabIndex')
   /**
    * Get appropriate tab index
@@ -133,36 +135,35 @@ export default Component.extend({
    * @param {Number} tabIndex - tab index
    * @returns {Number} tab index
    */
-  computedTabIndex (disabled, tabIndex) {
-    return disabled ? -1 : tabIndex
+  get computedTabIndex () {
+    return this.get('disabled') ? -1 : this.get('tabIndex')
   },
 
-  @readOnly
   @computed('opened', 'userInput', 'filter', 'focused')
-  _opened (opened, userInput, filter, focused) {
-    return (opened || focused) && userInput && !isEmpty(filter)
+  get _opened () {
+    return (this.get('opened') || this.get('focused')) && this.get('userInput') && !isEmpty(this.get('filter'))
   },
 
-  @readOnly
   @computed('error')
   /**
    * Get appropriate class for input text
    * @param {Boolean} error - whether or not input is disabled
    * @returns {String} class for input text
    */
-  inputClass (error) {
-    if (error) {
+  get inputClass () {
+    if (this.get('error')) {
       return 'error'
     }
   },
 
-  @readOnly
   @computed('data', 'filter', 'onInput')
-  items (data, filter, onInput) {
+  get items () {
+    let data = this.get('data')
     if (isEmpty(data)) {
       return []
     }
 
+    let filter = this.get('filter')
     filter = filter ? filter.toLowerCase() : null
 
     return data.filter((item) => {
