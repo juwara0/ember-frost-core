@@ -1,5 +1,3 @@
-/* eslint-env node */
-
 'use strict'
 
 const autoprefixer = require('broccoli-autoprefixer')
@@ -34,18 +32,6 @@ module.exports = {
       app.import(path.join('vendor', 'perfect-scrollbar.min.js'))
       app.import(path.join('vendor', 'perfect-scrollbar.min.css'))
     }
-  },
-
-  init: function (app) {
-    this.options = this.options || {}
-    this.options.babel = this.options.babel || {}
-    this.options.babel.optional = this.options.babel.optional || []
-
-    if (this.options.babel.optional.indexOf('es7.decorators') === -1) {
-      this.options.babel.optional.push('es7.decorators')
-    }
-
-    this._super.init.apply(this, arguments)
   },
 
   /**
